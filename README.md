@@ -27,3 +27,43 @@ Se puede crear un script para ejecutar el programa de forma sencilla. El codigo 
 Para ejecutar se debe escribir la siguiente linea en la terminal de linux:
 
 `./ejecutar.sh nombreArchivo`
+/usr/include/asm-generic/
+unistd.h
+
+##  DIrectivas
+**dword**
+Cambiar el valor original de una constante
+desplazamientos a nivel de memoria
+byte 1b
+word 2b
+dword 4b
+qword 8b
+tword 10b
+```
+mensaje db 'Hola'
+[mensaje] ;-> para acceder a memoria
+mov [mensaje + 0], dword 'mala' ;-> estoy accediendo un desplazamiento dentro del valor en donde esta almacenado el mensaje
+```
+constatnes
+    *   equ
+    *   assign
+    *   define
+
+**EQU**
+definir tamano del componenete
+no se puede modificar
+``
+len EQU $-mensaje
+``
+
+**assign**
+```
+msj db "valor"
+letra equ 'a'
+; %assign
+; %assign identificador valor
+%assign signos '***'
+```
+**define**
+`; %define identificador valor`
+`%define signos '***'`
