@@ -5,19 +5,21 @@ section .data
     msjb db 10, "Ingrese el segundo valor:"
     lenb EQU $-msjb
     
-    presentar db 10, "La       es:"
-    len_p EQU $-presentar
-
+    mensajito db 10,"Resultado *** :"
+    len EQU $-mensajito
+    
 section .bss
     a resb 1
     b resb 1
-    suma resb 1
+    sum resb 1
+    restita resb 1
+    mult resb 1
+    divi resb 1
     residuo resb 1
-    cociente resb 1
-
+    
 section .text
     global _start
-
+    
 _start:
     ;Ingrea el primer valor
     mov eax,4
@@ -45,55 +47,87 @@ _start:
     mov edx,2
     int 80H
     
-    ;Operacion resta
+    jmp division
+
+suma:
+    mov ax, [a]
+    mov bx, [b]
+    sub ax,'0' ;convertir cadena a numero
+    sub bx,'0'
+    add ax,bx
+    add ax,'0'
+    mov [sum],ax
+    
+    mov [mensajito+11], dword 'Sum'
+    
+    ;Presentar resultado
+    mov eax,4
+    mov ebx,1
+    mov ecx,mensajito
+    mov edx,len
+    int 80H
+    
+    mov eax,4
+    mov ebx,1
+    mov ecx,sum
+    mov edx,1
+    int 80H
+    
+    jmp multiplicacion
+    
+resta:
     mov ax, [a]
     mov bx, [b]
     sub ax,'0' ;convertir cadena a numero
     sub bx,'0'
     sub ax,bx
     add ax,'0'
-    mov [suma],ax
+    mov [restita],ax
     
-    mov [presentar+4], dword 'resta'
+    mov [mensajito+11], dword 'Res'
     
     ;Presentar resultado
     mov eax,4
     mov ebx,1
-    mov ecx,presentar
-    mov edx,len_p
+    mov ecx,mensajito
+    mov edx,len
     int 80H
     
     mov eax,4
     mov ebx,1
-    mov ecx,suma
+    mov ecx,restita
     mov edx,1
     int 80H
     
-    ;Operacion multiplicacion
+    jmp suma
+    
+multiplicacion:
     mov ax, [a]
     mov bx, [b]
     sub ax,'0' ;convertir cadena a numero
     sub bx,'0'
     mul bx
     add ax,'0'
-    mov [suma],ax
-    
-    mov [presentar+4], dword 'Mult'
+    mov [mult],ax
+
+    mov [mensajito+11], dword 'Mul'
     
     ;Presentar resultado
     mov eax,4
     mov ebx,1
-    mov ecx,presentar
-    mov edx,len_p
+    mov ecx,mensajito
+    mov edx,len
     int 80H
     
     mov eax,4
     mov ebx,1
-    mov ecx,suma
+    mov ecx,mult
     mov edx,1
     int 80H
     
-    ;Operacion division
+    jmp salir
+    
+division:
     mov al, [a]
     mov bl, [b]
     sub al,'0' ;convertir cadena a numero
@@ -101,39 +135,27 @@ _start:
     div bl
     add ah, '0'
     add al,'0'
-    mov [cociente],al
+    mov [divi],al
     mov [residuo], ah
     
-    mov [presentar+4], dword 'Div'
-    
+    mov [mensajito+11], dword 'Div'
+        
     ;Presentar resultado
     mov eax,4
     mov ebx,1
-    mov ecx,presentar
-    mov edx,len_p
+    mov ecx,mensajito
+    mov edx,len
     int 80H
     
     mov eax,4
     mov ebx,1
-    mov ecx,cociente
+    mov ecx,divi
     mov edx,1
     int 80H
     
-    mov [presentar+4], dword 'Residuo'
+    jmp resta
     
-    ;Presentar resultado
-    mov eax,4
-    mov ebx,1
-    mov ecx,presentar
-    mov edx,len_p
-    int 80H
-    
-    mov eax,4
-    mov ebx,1
-    mov ecx,residuo
-    mov edx,1
-    int 80H
-    
+salir:
     mov eax,1
     mov ebx,0
     int 80H

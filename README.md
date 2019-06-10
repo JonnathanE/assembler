@@ -32,6 +32,7 @@ unistd.h
 
 ##  DIrectivas
 **dword**
+
 Cambiar el valor original de una constante
 desplazamientos a nivel de memoria
 byte 1b
@@ -50,6 +51,7 @@ constatnes
     *   define
 
 **EQU**
+
 definir tamano del componenete
 no se puede modificar
 ``
@@ -67,3 +69,34 @@ letra equ 'a'
 **define**
 `; %define identificador valor`
 `%define signos '***'`
+
+**Division 8 bits**
+```
+Ax = AH residuo, Al cociente
+div bl -> ax = al/bl
+```
+
+**Saltos no condicionales**
+    *   jmp operando
+        *   jmp 103
+            *   jmp etiquetas
+    
+    je,jp,jc,jz -> la bandera se activa
+    jne,jnc,nnp -> la bandera no se activa
+            
+
+**Compert cmp**
+
+cmp operando1, operando2
+
+op1 = op2 -> ZR
+op1 != op2 -> NZ
+
+DEBER
+
+Menu
+    1 Suma
+    2 Res
+    3 Mul
+    4 Div
+    5 Salir
