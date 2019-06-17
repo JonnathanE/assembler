@@ -92,6 +92,15 @@ cmp operando1, operando2
 op1 = op2 -> ZR
 op1 != op2 -> NZ
 
+```
+cmp(3,3)
+    ZF = 1  CF = 0
+cmp(4,3)
+    ZF = 0  CF = 0
+cmp(3,4)
+    ZF = 0  CF = 1
+```
+
 DEBER
 
 Menu
@@ -100,3 +109,37 @@ Menu
     3 Mul
     4 Div
     5 Salir
+    
+
+**And**
+
+Si ambos bits coinciden = 1
+si ambos bits no coinciden = 0
+```
+mov al, 7
+and al, 1
+jz par
+```
+
+**Pila**
+
+Se gurda el valor en la pila, no se gurda la referencia
+```
+ingresar nombre
+mov ax, [nombre]
+push ax
+pop bx
+```
+
+**DEBER**
+
+Pedir un numero: 5
+
+presentar una matriz [n][n] con asteristos
+```
+*****
+*****
+*****
+*****
+*****
+```
