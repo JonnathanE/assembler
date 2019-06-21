@@ -143,3 +143,15 @@ presentar una matriz [n][n] con asteristos
 *****
 *****
 ```
+
+**call**
+
+**ret**
+
+Retorna a la ultima linea del llamado
+
+**loop**
+
+instruccion de ciclos
+
+decrementa cx
