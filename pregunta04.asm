@@ -1,10 +1,5 @@
 section .data
     msj db "*"
-    len EQU $-msj
-    
-section .bss
-    nombre resb 1
-    res resb 1
     
 section .text
     global _start
@@ -24,7 +19,7 @@ imprimir:
     mov eax, 4
     mov ebx, 1
     mov ecx, msj
-    mov edx, len
+    mov edx, 1
     int 80H
     pop ecx
     jmp bucle
