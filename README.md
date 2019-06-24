@@ -155,3 +155,7 @@ Retorna a la ultima linea del llamado
 instruccion de ciclos
 
 decrementa cx
+
+## Programación en lenguaje ensamblador/Primeros conceptos
+
+https://es.wikibooks.org/wiki/Programaci%C3%B3n_en_lenguaje_ensamblador/Primeros_conceptos#Saltos_incondicionales_y_condicionales
