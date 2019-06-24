@@ -31,15 +31,33 @@ Para ejecutar se debe escribir la siguiente linea en la terminal de linux:
 unistd.h
 
 ##  DIrectivas
+
+|Constante|Variable|
+|:--:|:--:|
+|d   |res |
+
+constante|tamano|variable
+:---:|------ |:---:|
+db   |byte             |resb
+dw   |word             |resw
+dd   |double word      |resd
+dq   |palabra cuadruple|resq
+dt   |parrafo/texto    |rest
+
 **dword**
 
 Cambiar el valor original de una constante
 desplazamientos a nivel de memoria
+
 byte 1b
+
 word 2b
+
 dword 4b
+
 qword 8b
-tword 10b
+
+tword 16b
 ```
 mensaje db 'Hola'
 [mensaje] ;-> para acceder a memoria
@@ -67,6 +85,7 @@ letra equ 'a'
 %assign signos '***'
 ```
 **define**
+
 `; %define identificador valor`
 `%define signos '***'`
 
@@ -77,9 +96,10 @@ div bl -> ax = al/bl
 ```
 
 **Saltos no condicionales**
-    *   jmp operando
-        *   jmp 103
-            *   jmp etiquetas
+
+*   jmp operando
+    *   jmp 103
+        *   jmp etiquetas
     
     je,jp,jc,jz -> la bandera se activa
     jne,jnc,nnp -> la bandera no se activa
@@ -114,11 +134,20 @@ Menu
 **And**
 
 Si ambos bits coinciden = 1
+
 si ambos bits no coinciden = 0
 ```
 mov al, 7
 and al, 1
 jz par
+```
+
+```
+    mov ax, [a]
+    sub ax,'0' ;convertir cadena a numero
+    add ax, 1
+    JP par
+    JNP impar
 ```
 
 **Pila**
@@ -146,15 +175,48 @@ presentar una matriz [n][n] con asteristos
 
 **call**
 
+```
+l1:
+    push ecx
+    push ebx
+    call imprimir_enter
+    pop ecx
+    mov ebx, ecx
+    push ebx
+```
+
 **ret**
 
 Retorna a la ultima linea del llamado
+
+```
+imprimir_enter:
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, nueva_linea
+    mov edx, 1
+    int 80H
+    ret ; retorna a la ultima linea del llamado
+```
 
 **loop**
 
 instruccion de ciclos
 
 decrementa cx
+
+```
+l2:
+    push ecx
+    call imprimir_asterisco
+    pop ecx
+    loop l2 ; ecx != 0
+    pop ebx
+    pop ecx
+    inc ebx
+    loop l1
+    jmp salir
+```
 
 ## Programación en lenguaje ensamblador/Primeros conceptos
 
