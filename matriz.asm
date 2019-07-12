@@ -5,7 +5,7 @@ section .data
 	salto db "",10
 	leng_salto equ $ -salto
 
-	msjDatCol db "Ingrese valor da la matriz: "
+	msjDatCol db "Ingrese valor: "
 	lengMsjDataCol equ $-msjDatCol
 	
 section .bss

@@ -114,11 +114,11 @@ op1 != op2 -> NZ
 
 ```
 cmp(3,3)
-    ZF = 1  CF = 0
+    ZF = 1  CF = 0      jz
 cmp(4,3)
-    ZF = 0  CF = 0
+    ZF = 0  CF = 0      jg
 cmp(3,4)
-    ZF = 0  CF = 1
+    ZF = 0  CF = 1      jb,jc
 ```
 
 DEBER
@@ -175,6 +175,10 @@ presentar una matriz [n][n] con asteristos
 
 **call**
 
+subrutina c -> api
+
+Nota: si no retorna con la etiqurta `ret`, el programa se traba
+
 ```
 l1:
     push ecx
@@ -205,6 +209,8 @@ instruccion de ciclos
 
 decrementa cx
 
+
+
 ```
 l2:
     push ecx
@@ -221,3 +227,52 @@ l2:
 ## Programación en lenguaje ensamblador/Primeros conceptos
 
 https://es.wikibooks.org/wiki/Programaci%C3%B3n_en_lenguaje_ensamblador/Primeros_conceptos#Saltos_incondicionales_y_condicionales
+
+**pushF y popF**
+
+guarda y restablece la pila y el estado de las banderas
+
+**pusha y popa (20286)**
+
+Guarda y restablece el contenido de RPG ax, bx, cx, dex
+
+
+**Saltos**
+
+mismo segmento:
+
+*   cortos      1 bytes -128 a 127 bytes
+*   cercanos    2 bytes 32768 a 32767
+
+(css: ip ) Salto de segmento:
+
+*   call
+*   jmp
+
+|   Banderas    |   Cortas  |   Cercanos    |   Lejanos |
+|   :--:        |   :--:    |   :--:        |   :--:    |
+|               | -128 a 127 bytes  | -32768 a 32767 bytes  |
+|               |   mismo segment0  |   mismo segmento      |   mismo segmento  |
+|   jmp         |   si              |       si              |   si              |
+|   jnn         |   si              |  >80383 familia procesadores |    no      |
+|   loop        |   si              |       no              |   no              |
+|   call        |   si/no           |       si              |   si              |
+
+
+inst. Saltos incondicionales
+jb = jc
+transfiere el control dependiendo de la configuracion de la bandera
+
+si jnn sobrepasa los bytes es un error de segmentacion
+
+**Instrucciones que modifican las banderas**
+*   and
+*   add
+
+**Se modifican**
+*   ip saltos cercanos
+*   cs and ip en saltos lejanos
+
+**DEBER**
+135 libro de petter
+8.4, 8.13, 8.14, 8.15
