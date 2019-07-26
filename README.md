@@ -276,3 +276,14 @@ si jnn sobrepasa los bytes es un error de segmentacion
 **DEBER**
 135 libro de petter
 8.4, 8.13, 8.14, 8.15
+
+
+https://es.wikipedia.org/wiki/Int_80h
+
+Operaciones de suma simple
+
+``mov eax, 5
+add eax, '0'    ; cero  en codigo ascii es 48
+add eax, 48
+escribir eax, 1
+``
