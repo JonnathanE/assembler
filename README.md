@@ -27,8 +27,47 @@ Se puede crear un script para ejecutar el programa de forma sencilla. El codigo 
 Para ejecutar se debe escribir la siguiente linea en la terminal de linux:
 
 `./ejecutar.sh nombreArchivo`
+
 /usr/include/asm-generic/
 unistd.h
+
+##  Registros del Procesador
+
+|Reg. Estado|Reg. Uso General|Reg.Segmento|Reg. Puntero|
+|:--:   |:--:|:--:|:--:|
+|FLAGS  |AX |CS _S.codigo   |IP _P.istruccion   |
+|       |BX |DS _S.datos    |SP _P.pila         |
+|       |CX |SS _S.pila     |BP _P.base         |
+|       |DX |ES _S.extra    |SI _P.fuente       |
+|       |   |               |DI _P.destino      |
+
+## Banderas
+
+* Overflow
+    * ➔ NV = no hay desbordamiento
+    * ➔ OV = sí lo hay
+* Direction
+    * ➔ UP = hacia adelante;
+    * ➔ DN = hacia atras;
+* Interrupts
+    * ➔ DI = desactivadas;
+    * ➔ EI = activadas
+* Sign
+    * ➔ PL = positivo;
+    * ➔ NG = negativo
+* Zero
+    * ➔ NZ = no es cero;
+    * ➔ ZR = sí lo es
+* Auxiliary Carry
+    * ➔ NA = no hay acarreo auxiliar;
+    * ➔ AC = hay acarreo auxiliar
+* Parity
+    * ➔ PO = paridad non;
+    * ➔ PE = paridad par;
+* Carry
+    * ➔ NC = no hay acarreo;
+    * ➔ CY = Sí lo hay
+
 
 ##  DIrectivas
 
@@ -279,6 +318,41 @@ si jnn sobrepasa los bytes es un error de segmentacion
 
 
 https://es.wikipedia.org/wiki/Int_80h
+
+**Saltos con Base en Datos Sin Signo**
+
+|Simbolo    |Descripcion                |Bandera Examinada|
+|:--:       |:--:                       |:--:   |
+|JE/JZ      |Salta si es igual          |ZF     |
+|JNE/JNZ    |Salta si no es igual       |ZF     |
+|JA/JNBE    |Bifurca si es mayor        |CF, ZF |
+|JAE/JNB    |Salta si es mayor o igual  |CF     |
+|JB/JNAE    |Salta si es menor          |CF     |
+|JBE/JNA    |Salta si es menor o igual  |CF, AF |
+
+**Saltos con Base en Datos Con Signo**
+
+|Simbolo    |Descripcion                |Bandera Examinada|
+|:--:       |:--:                       |:--:   |
+|JE/JZ      |Salta si es igual          |ZF     |
+|JNE/JNZ    |Salta si no es igual       |ZF     |
+|JG/JNLE    |Salta si es mayor          |ZF, SF, OF |
+|JGE/JNL    |Salta si es mayor o igual  |SF, OF     |
+|JL/JNGE    |Salta si es menor          |SF, OF     |
+|JLE/JNG    |Salta si es menor o igual  |ZF, SF, OF |
+
+**Saltos con Base en Datos Con Signo**
+
+|Simbolo    |Descripcion                |Bandera Examinada|
+|:--:       |:--:                       |:--:   |
+|JS     |Salta si el signo es negativo |SF|
+|JNS    |Salta si el signo es positivo |SF|
+|JC     |Salta si hay acarreo (igual JB) |CF|
+|JNC    |Salta si no hay acarreo |CF|
+|JO     |Salta si hay desbordamiento |OF|
+|JNO    |Salta si no hay desbordamiento |OF|
+|JP/JPE |Salta si hay paridad o salta si la paraida es par |PF|
+|JNP/JPO|Salta si no hay paridad o salta si la paridad es impar|PF|
 
 Operaciones de suma simple
 
