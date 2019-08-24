@@ -46,6 +46,37 @@ section .data
     fila3 db 0, 0, 0
     lenfila3 EQU $-fila3
     
+
+    ; dibujar X: row 1; col 1
+
+    xC01 db 0x1b,"[12;24f", 0x1b,"[96m",'\   /'
+    lenxC01 EQU $-xC01
+    xC02 db 0x1b,"[13;24f", 0x1b,"[96m",' \ /'
+    lenxC02 EQU $-xC02
+    xC03 db 0x1b,"[14;24f", 0x1b,"[96m",'  \'
+    lenxC03 EQU $-xC03
+    xC04 db 0x1b,"[15;24f", 0x1b,"[96m",' / \'
+    lenxC04 EQU $-xC04
+    xC05 db 0x1b,"[16;24f", 0x1b,"[96m",'/   \'
+    lenxC05 EQU $-xC05
+
+    ; dibujar X: row 1; col 2
+
+    xC06 db 0x1b,"[12;36f", 0x1b,"[96m",'\   /'
+    xC07 db 0x1b,"[13;36f", 0x1b,"[96m",' \ /'
+    xC08 db 0x1b,"[14;36f", 0x1b,"[96m",'  \'
+    xC09 db 0x1b,"[15;36f", 0x1b,"[96m",' / \'
+    xC10 db 0x1b,"[16;36f", 0x1b,"[96m",'/   \'
+
+    ; dibujar X: row 1; col 3
+
+    xC11 db 0x1b,"[12;48f", 0x1b,"[96m",'\   /'
+    xC12 db 0x1b,"[13;48f", 0x1b,"[96m",' \ /'
+    xC13 db 0x1b,"[14;48f", 0x1b,"[96m",'  \'
+    xC14 db 0x1b,"[15;48f", 0x1b,"[96m",' / \'
+    xC15 db 0x1b,"[16;48f", 0x1b,"[96m",'/   \'
+    lenxC15 EQU $-xC15
+
     ; dibujar
     lineH01 db 0x1b,"[11;20f", 0x1b,"[37m",'-------------------------------------'
     lineH02 db 0x1b,"[17;20f", 0x1b,"[37m",'-------------------------------------'
@@ -73,44 +104,7 @@ section .data
 
 
 
-    ; dibujar X: row 1; col 1
 
-    xC01 db 0x1b,"[12;24f", 0x1b,"[37m",'\   /'
-    lenxC01 EQU $-xC01
-    xC02 db 0x1b,"[13;24f", 0x1b,"[37m",' \ /'
-    lenxC02 EQU $-xC02
-    xC03 db 0x1b,"[14;24f", 0x1b,"[37m",'  \'
-    lenxC03 EQU $-xC03
-    xC04 db 0x1b,"[15;24f", 0x1b,"[37m",' / \'
-    lenxC04 EQU $-xC04
-    xC05 db 0x1b,"[16;24f", 0x1b,"[37m",'/   \'
-    lenxC05 EQU $-xC05
-
-    ; dibujar X: row 1; col 2
-
-    xC06 db 0x1b,"[12;36f", 0x1b,"[37m",'\   /'
-    lenxC06 EQU $-xC06
-    xC07 db 0x1b,"[13;36f", 0x1b,"[37m",' \ /'
-    lenxC07 EQU $-xC07
-    xC08 db 0x1b,"[14;36f", 0x1b,"[37m",'  \'
-    lenxC08 EQU $-xC08
-    xC09 db 0x1b,"[15;36f", 0x1b,"[37m",' / \'
-    lenxC09 EQU $-xC09
-    xC10 db 0x1b,"[16;36f", 0x1b,"[37m",'/   \'
-    lenxC10 EQU $-xC10
-
-    ; dibujar X: row 1; col 3
-
-    xC11 db 0x1b,"[12;48f", 0x1b,"[37m",'\   /'
-    lenxC11 EQU $-xC11
-    xC12 db 0x1b,"[13;48f", 0x1b,"[37m",' \ /'
-    lenxC12 EQU $-xC12
-    xC13 db 0x1b,"[14;48f", 0x1b,"[37m",'  \'
-    lenxC13 EQU $-xC13
-    xC14 db 0x1b,"[15;48f", 0x1b,"[37m",' / \'
-    lenxC14 EQU $-xC14
-    xC15 db 0x1b,"[16;48f", 0x1b,"[37m",'/   \'
-    lenxC15 EQU $-xC15
     
 section .bss
     cont resb 10
@@ -172,6 +166,8 @@ llenarF3:
     int 80H
     
     call drawTable
+    call drawXR1C1
+    call drawXR1C3
 
     ; ====================================================================================================
     ; =================================    JUGADOR 1    ==================================================
@@ -1201,26 +1197,31 @@ drawTable:
     escribir lineC13,1
     escribir lineC14,1
     escribir lineC15,1
+    ret
 
+drawXR1C1:
     ; dibujar X: row 1; col 1
     escribir xC01, lenxC01
     escribir xC02, lenxC02
     escribir xC03, lenxC03
     escribir xC04, lenxC04
     escribir xC05, lenxC05
+    ret
+drawXR1C2:
     ; dibujar X: row 1; col 2
-    escribir xC06, lenxC06
-    escribir xC07, lenxC07
-    escribir xC08, lenxC08
-    escribir xC09, lenxC09
-    escribir xC10, lenxC10
+    escribir xC06, lenxC01
+    escribir xC07, lenxC02
+    escribir xC08, lenxC03
+    escribir xC09, lenxC04
+    escribir xC10, lenxC05
+    ret
+drawXR1C3:
     ; dibujar X: row 1; col 3
-    escribir xC11, lenxC11
-    escribir xC12, lenxC12
-    escribir xC13, lenxC13
-    escribir xC14, lenxC14
-    escribir xC15, lenxC15
-
+    escribir xC11, lenxC01
+    escribir xC12, lenxC02
+    escribir xC13, lenxC03
+    escribir xC14, lenxC04
+    escribir xC15, lenxC05
     ret
 
 
