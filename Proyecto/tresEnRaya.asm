@@ -7,7 +7,7 @@
 %endmacro
 
 section .data
-    msjStar db "Presione enter para comenzar"
+    msjStar db 0x1b,"[4;30f", 0x1b,"[33m", "Presione enter para comenzar"
     lenStar EQU $-msjStar
     
     msjEnd db "END",10
@@ -30,12 +30,13 @@ section .data
     msjCol db "Columna: "
     lenCol EQU $-msjCol
 
-    msjJ1 db 0x1b,"[96m","Jugador 1",10, 0x1b,"[37m"
+    msjJ1 db 0x1b,"[5;0f", 0x1b,"[96m","Jugador 1",10, 0x1b,"[37m"
     lenJ1 EQU $-msjJ1
     
-    msjJ2 db 0x1b,"[32m","Jugador 2",10, 0x1b,"[37m"
+    msjJ2 db 0x1b,"[5;0f", 0x1b,"[32m","Jugador 2",10, 0x1b,"[37m"
     lenJ2 EQU $-msjJ2
     
+    ; declaracion de filas
     fila1 db 0, 0, 0
     lenfila1 EQU $-fila1
     
@@ -45,6 +46,71 @@ section .data
     fila3 db 0, 0, 0
     lenfila3 EQU $-fila3
     
+    ; dibujar
+    lineH01 db 0x1b,"[11;20f", 0x1b,"[37m",'-------------------------------------'
+    lineH02 db 0x1b,"[17;20f", 0x1b,"[37m",'-------------------------------------'
+    lineH03 db 0x1b,"[23;20f", 0x1b,"[37m",'-------------------------------------'
+    lineH04 db 0x1b,"[29;20f", 0x1b,"[37m",'-------------------------------------'
+    lenlineH01 EQU $-lineH01
+
+    lineC01 db 0x1b,"[12;20f", 0x1b,"[37m",'|           |           |           |'
+    lineC02 db 0x1b,"[13;20f", 0x1b,"[37m",'|           |           |           |'
+    lineC03 db 0x1b,"[14;20f", 0x1b,"[37m",'|           |           |           |'
+    lineC04 db 0x1b,"[15;20f", 0x1b,"[37m",'|           |           |           |'
+    lineC05 db 0x1b,"[16;20f", 0x1b,"[37m",'|           |           |           |'
+
+    lineC06 db 0x1b,"[18;20f", 0x1b,"[37m",'|           |           |           |'
+    lineC07 db 0x1b,"[19;20f", 0x1b,"[37m",'|           |           |           |'
+    lineC08 db 0x1b,"[20;20f", 0x1b,"[37m",'|           |           |           |'
+    lineC09 db 0x1b,"[21;20f", 0x1b,"[37m",'|           |           |           |'
+    lineC10 db 0x1b,"[22;20f", 0x1b,"[37m",'|           |           |           |'
+
+    lineC11 db 0x1b,"[24;20f", 0x1b,"[37m",'|           |           |           |'
+    lineC12 db 0x1b,"[25;20f", 0x1b,"[37m",'|           |           |           |'
+    lineC13 db 0x1b,"[26;20f", 0x1b,"[37m",'|           |           |           |'
+    lineC14 db 0x1b,"[27;20f", 0x1b,"[37m",'|           |           |           |'
+    lineC15 db 0x1b,"[28;20f", 0x1b,"[37m",'|           |           |           |'
+
+
+
+    ; dibujar X: row 1; col 1
+
+    xC01 db 0x1b,"[12;24f", 0x1b,"[37m",'\   /'
+    lenxC01 EQU $-xC01
+    xC02 db 0x1b,"[13;24f", 0x1b,"[37m",' \ /'
+    lenxC02 EQU $-xC02
+    xC03 db 0x1b,"[14;24f", 0x1b,"[37m",'  \'
+    lenxC03 EQU $-xC03
+    xC04 db 0x1b,"[15;24f", 0x1b,"[37m",' / \'
+    lenxC04 EQU $-xC04
+    xC05 db 0x1b,"[16;24f", 0x1b,"[37m",'/   \'
+    lenxC05 EQU $-xC05
+
+    ; dibujar X: row 1; col 2
+
+    xC06 db 0x1b,"[12;36f", 0x1b,"[37m",'\   /'
+    lenxC06 EQU $-xC06
+    xC07 db 0x1b,"[13;36f", 0x1b,"[37m",' \ /'
+    lenxC07 EQU $-xC07
+    xC08 db 0x1b,"[14;36f", 0x1b,"[37m",'  \'
+    lenxC08 EQU $-xC08
+    xC09 db 0x1b,"[15;36f", 0x1b,"[37m",' / \'
+    lenxC09 EQU $-xC09
+    xC10 db 0x1b,"[16;36f", 0x1b,"[37m",'/   \'
+    lenxC10 EQU $-xC10
+
+    ; dibujar X: row 1; col 3
+
+    xC11 db 0x1b,"[12;48f", 0x1b,"[37m",'\   /'
+    lenxC11 EQU $-xC11
+    xC12 db 0x1b,"[13;48f", 0x1b,"[37m",' \ /'
+    lenxC12 EQU $-xC12
+    xC13 db 0x1b,"[14;48f", 0x1b,"[37m",'  \'
+    lenxC13 EQU $-xC13
+    xC14 db 0x1b,"[15;48f", 0x1b,"[37m",' / \'
+    lenxC14 EQU $-xC14
+    xC15 db 0x1b,"[16;48f", 0x1b,"[37m",'/   \'
+    lenxC15 EQU $-xC15
     
 section .bss
     cont resb 10
@@ -61,6 +127,7 @@ section .text
     global _start
 
 _start:
+    ; ==========================================================================================================
     ; ==================================== llenar las filas con un valor 5 =====================================
     ; ==========================================================================================================
     mov esi, fila1
@@ -96,8 +163,7 @@ llenarF3:
     ; =====================================================================================================
     ; ===================================== Iniciar el juego ==============================================
     ; =====================================================================================================
-    
-    
+
     escribir msjStar, lenStar
     mov eax, 3
     mov ebx, 2
@@ -105,6 +171,8 @@ llenarF3:
     mov edx, 1
     int 80H
     
+    call drawTable
+
     ; ====================================================================================================
     ; =================================    JUGADOR 1    ==================================================
     ; ====================================================================================================
@@ -1106,6 +1174,55 @@ impMatriz:
         jb impF3
         escribir salto,1
         jmp salir
+
+
+
+; ==========================================================================================================
+; ============================================== DIBUJAR ===================================================
+; ==========================================================================================================
+drawTable:
+    escribir lineH01, lineH01
+    escribir lineH02, lineH01
+    escribir lineH03, lineH01
+    escribir lineH04, lineH01
+
+    escribir lineC01,1
+    escribir lineC02,1
+    escribir lineC03,1
+    escribir lineC04,1
+    escribir lineC05,1
+    escribir lineC06,1
+    escribir lineC07,1
+    escribir lineC08,1
+    escribir lineC09,1
+    escribir lineC10,1
+    escribir lineC11,1
+    escribir lineC12,1
+    escribir lineC13,1
+    escribir lineC14,1
+    escribir lineC15,1
+
+    ; dibujar X: row 1; col 1
+    escribir xC01, lenxC01
+    escribir xC02, lenxC02
+    escribir xC03, lenxC03
+    escribir xC04, lenxC04
+    escribir xC05, lenxC05
+    ; dibujar X: row 1; col 2
+    escribir xC06, lenxC06
+    escribir xC07, lenxC07
+    escribir xC08, lenxC08
+    escribir xC09, lenxC09
+    escribir xC10, lenxC10
+    ; dibujar X: row 1; col 3
+    escribir xC11, lenxC11
+    escribir xC12, lenxC12
+    escribir xC13, lenxC13
+    escribir xC14, lenxC14
+    escribir xC15, lenxC15
+
+    ret
+
 
 ; ==========================================================================================================
 ; ============================================== SALIR =====================================================
