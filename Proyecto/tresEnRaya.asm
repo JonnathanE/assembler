@@ -135,7 +135,7 @@ IngresarNum:
         jz f2
     cmp al, 3                           ; compara fila 3
         jz f3
-    jmp salir
+    jmp IngresarNum
 
 
     
@@ -149,7 +149,7 @@ f1:                                     ; ingresa fila 1
         jz col1F1
     cmp al, 2                           ; compara col 2
         jz col2F1
-    jmp impMatriz
+    jmp IngresarNum
 
 col0F1:                                 ; ingresa col 0 row 1
     mov ah, 1
@@ -189,7 +189,7 @@ f2:                                     ; ingresa fila 2
         jz col1F2
     cmp al, 2
         jz col2F2
-    jmp impMatriz
+    jmp IngresarNum
 
 col0F2:                                 ; ingresa col 0 row 2
     mov ah, 1
@@ -228,7 +228,7 @@ f3:                                     ; ingresa row 3
         jz col1F3
     cmp al, 2
         jz col2F3
-    jmp impMatriz
+    jmp IngresarNum
 
 col0F3:                                 ; ingresa col 0 row 3
     mov ah, 1
@@ -301,25 +301,33 @@ f1J2:                                     ; ingresa fila 1
         jz col1F1J2
     cmp al, 2                           ; compara col 2
         jz col2F1J2
-    jmp impMatriz
+    jmp IngresarNumJ2
 
 col0F1J2:                                 ; ingresa col 0 row 1
     mov ah, 0
     mov [fila1+0], ah
     mov ecx, 0
     call siEstaLlena
+    call row01J2
+    call row04J2
+    call row08J2
     jmp IngresarNum
 col1F1J2:                                 ; ingresa col 1 row 1
     mov ah, 0
     mov [fila1+1], ah
     mov ecx, 0
     call siEstaLlena
+    call row01J2
+    call row05J2
     jmp IngresarNum
 col2F1J2:                                 ; ingresa col 2 row 1
     mov ah, 0
     mov [fila1+2], ah
     mov ecx, 0
     call siEstaLlena
+    call row01J2
+    call row06J2
+    call row07J2
     jmp IngresarNum
 
 
@@ -333,25 +341,33 @@ f2J2:                                     ; ingresa fila 2
         jz col1F2J2
     cmp al, 2
         jz col2F2J2
-    jmp impMatriz
+    jmp IngresarNumJ2
 
 col0F2J2:                                 ; ingresa col 0 row 2
     mov ah, 0
     mov [fila2+0], ah
     mov ecx, 0
     call siEstaLlena
+    call row02J2
+    call row04J2
     jmp IngresarNum
 col1F2J2:                                 ; ingresa col 1 row 2
     mov ah, 0
     mov [fila2+1], ah
     mov ecx, 0
     call siEstaLlena
+    call row02J2
+    call row05J2
+    call row07J2
+    call row08J2
     jmp IngresarNum
 col2F2J2:                                 ; ingresa col 2 row 2
     mov ah, 0
     mov [fila2+2], ah
     mov ecx, 0
     call siEstaLlena
+    call row02J2
+    call row06J2
     jmp IngresarNum
     
 f3J2:                                     ; ingresa row 3
@@ -364,25 +380,33 @@ f3J2:                                     ; ingresa row 3
         jz col1F3J2
     cmp al, 2
         jz col2F3J2
-    jmp impMatriz
+    jmp IngresarNumJ2
 
 col0F3J2:                                 ; ingresa col 0 row 3
     mov ah, 0
     mov [fila3+0], ah
     mov ecx, 0
     call siEstaLlena
+    call row03J2
+    call row04J2
+    call row07J2
     jmp IngresarNum
 col1F3J2:                                 ; ingresa col 2 row 3
     mov ah, 0
     mov [fila3+1], ah
     mov ecx, 0
     call siEstaLlena
+    call row03J2
+    call row05J2
     jmp IngresarNum
 col2F3J2:                                 ; ingresa col 3 row 3
     mov ah, 0
     mov [fila3+2], ah
     mov ecx, 0
     call siEstaLlena
+    call row03J2
+    call row06J2
+    call row08J2
     jmp IngresarNum
 
 ; ===================================================================================================================
@@ -735,6 +759,292 @@ incContDiag:
     cmp dh, 6
         jz endcompRow08Fil03
 
+
+
+
+
+; ==============================================================================================
+; ==================================== JUGADOR 2 ===============================================
+; ==============================================================================================
+; ===================================== VERIFICAR TRES EN RAYA =================================
+; ==============================================================================================
+
+; ********************* verifica las filas *************************
+row01J2:
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov ecx, 3                          ; inicio contador del bulce
+        mov esi, 0                          ; inicio apuntador
+
+    compRow01J2:
+        mov dl, [fila1+esi]
+        inc esi
+        mov dh, 1
+        cmp dl, 0
+            jz incContRowJ2
+        endcompRow01J2:
+        loop compRow01J2
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+            jz winJ2
+        ret
+
+row02J2:
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov ecx, 3
+        mov esi, 0
+
+    compRow02J2:
+        mov dl, [fila2+esi]
+        inc esi
+        mov dh, 2
+        cmp dl, 0
+            jz incContRowJ2
+        endcompRow02J2:
+        loop compRow02J2
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+            jz winJ2
+        ret
+
+row03J2:
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov ecx, 3
+        mov esi, 0
+
+    compRow03J2:
+        mov dl, [fila3+esi]
+        inc esi
+        mov dh, 3
+        cmp dl, 0
+            jz incContRowJ2
+        endcompRow03J2:
+        loop compRow03J2
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+            jz winJ2
+        ret
+; ********************* verifica las Columnas ****************************
+row04J2:
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov dl, [fila1+0]
+        mov dh, 1
+        cmp dl, 0
+        jz incContColJ2
+        endcompRow04Fil01J2:
+
+        mov dl, [fila2+0]
+        mov dh, 2
+        cmp dl, 0
+        jz incContColJ2
+        endcompRow04Fil02J2:
+
+        mov dl, [fila3+0]
+        mov dh, 3
+        cmp dl, 0
+        jz incContColJ2
+        endcompRow04Fil03J2:
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+            jz winJ2
+        ret
+
+row05J2:
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov dl, [fila1+1]
+        mov dh, 4
+        cmp dl, 0
+        jz incContColJ2
+        endcompRow05Fil01J2:
+
+        mov dl, [fila2+1]
+        mov dh, 5
+        cmp dl, 0
+        jz incContColJ2
+        endcompRow05Fil02J2:
+
+        mov dl, [fila3+1]
+        mov dh, 6
+        cmp dl, 0
+        jz incContColJ2
+        endcompRow05Fil03J2:
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+            jz winJ2
+        ret
+
+row06J2:
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov dl, [fila1+2]
+        mov dh, 7
+        cmp dl, 0
+        jz incContColJ2
+        endcompRow06Fil01J2:
+
+        mov dl, [fila2+2]
+        mov dh, 8
+        cmp dl, 0
+        jz incContColJ2
+        endcompRow06Fil02J2:
+
+        mov dl, [fila3+2]
+        mov dh, 9
+        cmp dl, 0
+        jz incContColJ2
+        endcompRow06Fil03J2:
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+            jz winJ2
+        ret
+
+; ********************* verifica las diagonales **************************
+row07J2: ; diagonal secundaria
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov dl, [fila1+2]
+        mov dh, 1
+        cmp dl, 0
+        jz incContDiagJ2
+        endcompRow07Fil01J2:
+
+        mov dl, [fila2+1]
+        mov dh, 2
+        cmp dl, 0
+        jz incContDiagJ2
+        endcompRow07Fil02J2:
+
+        mov dl, [fila3+0]
+        mov dh, 3
+        cmp dl, 0
+        jz incContDiagJ2
+        endcompRow07Fil03J2:
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+            jz winJ2
+        ret
+
+row08J2: ; diagonal principal
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov dl, [fila1+0]
+        mov dh, 4
+        cmp dl, 0
+        jz incContDiagJ2
+        endcompRow08Fil01J2:
+
+        mov dl, [fila2+1]
+        mov dh, 5
+        cmp dl, 0
+        jz incContDiagJ2
+        endcompRow08Fil02J2:
+
+        mov dl, [fila3+2]
+        mov dh, 6
+        cmp dl, 0
+        jz incContDiagJ2
+        endcompRow08Fil03J2:
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+            jz winJ2
+        ret
+
+; *********************** incrementa el contador para ROW, COL, DIAGONAL*************************
+incContRowJ2:
+    mov bl, [cont]
+    sub bl, '0'
+    inc bl
+    add bl, '0'
+    mov [cont], bl
+    cmp dh, 1
+        jz endcompRow01J2
+    cmp dh, 2
+        jz endcompRow02J2
+    cmp dh, 3
+        jz endcompRow03J2
+
+incContColJ2:
+    mov bl, [cont]
+    sub bl, '0'
+    inc bl
+    add bl, '0'
+    mov [cont], bl
+    cmp dh, 1
+        jz endcompRow04Fil01J2
+    cmp dh, 2
+        jz endcompRow04Fil02J2
+    cmp dh, 3
+        jz endcompRow04Fil03J2
+    cmp dh, 4
+        jz endcompRow05Fil01J2
+    cmp dh, 5
+        jz endcompRow05Fil02J2
+    cmp dh, 6
+        jz endcompRow05Fil03J2
+    cmp dh, 7
+        jz endcompRow06Fil01J2
+    cmp dh, 8
+        jz endcompRow06Fil02J2
+    cmp dh, 9
+        jz endcompRow06Fil03J2
+
+incContDiagJ2:
+    mov bl, [cont]
+    sub bl, '0'
+    inc bl
+    add bl, '0'
+    mov [cont], bl
+    cmp dh, 1
+        jz endcompRow07Fil01J2
+    cmp dh, 2
+        jz endcompRow07Fil02J2
+    cmp dh, 3
+        jz endcompRow07Fil03J2
+    cmp dh, 4
+        jz endcompRow08Fil01J2
+    cmp dh, 5
+        jz endcompRow08Fil02J2
+    cmp dh, 6
+        jz endcompRow08Fil03J2
+
+
+
 ; =====================================================================================================
 ; ======================================== IMPRIMIR MENSAJE GANADOR ===================================
 ; =====================================================================================================
@@ -797,6 +1107,7 @@ impMatriz:
         escribir salto,1
         jmp salir
 
+; ==========================================================================================================
 ; ============================================== SALIR =====================================================
 ; ==========================================================================================================
 salir:
