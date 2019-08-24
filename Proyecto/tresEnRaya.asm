@@ -143,16 +143,19 @@ col0F1:                                 ; ingresa col 0 row 1
     mov ah, 1
     mov [fila1+0], ah
     mov ecx, 0
+    call siEstaLlena
     jmp IngresarNumJ2
 col1F1:                                 ; ingresa col 1 row 1
     mov ah, 1
     mov [fila1+1], ah
     mov ecx, 0
+    call siEstaLlena
     jmp IngresarNumJ2
 col2F1:                                 ; ingresa col 2 row 1
     mov ah, 1
     mov [fila1+2], ah
     mov ecx, 0
+    call siEstaLlena
     jmp IngresarNumJ2
 
 
@@ -172,6 +175,7 @@ col0F2:                                 ; ingresa col 0 row 2
     mov ah, 1
     mov [fila2+0], ah
     mov ecx, 0
+    call siEstaLlena
     jmp IngresarNumJ2
 col1F2:                                 ; ingresa col 1 row 2
     mov ah, 1
@@ -183,6 +187,7 @@ col2F2:                                 ; ingresa col 2 row 2
     mov ah, 1
     mov [fila2+2], ah
     mov ecx, 0
+    call siEstaLlena
     jmp IngresarNumJ2
     
 f3:                                     ; ingresa row 3
@@ -201,16 +206,19 @@ col0F3:                                 ; ingresa col 0 row 3
     mov ah, 1
     mov [fila3+0], ah
     mov ecx, 0
+    call siEstaLlena
     jmp IngresarNumJ2
 col1F3:                                 ; ingresa col 2 row 3
     mov ah, 1
     mov [fila3+1], ah
     mov ecx, 0
+    call siEstaLlena
     jmp IngresarNumJ2
 col2F3:                                 ; ingresa col 3 row 3
     mov ah, 1
     mov [fila3+2], ah
     mov ecx, 0
+    call siEstaLlena
     jmp IngresarNumJ2
     
     
@@ -261,17 +269,20 @@ col0F1J2:                                 ; ingresa col 0 row 1
     mov ah, 0
     mov [fila1+0], ah
     mov ecx, 0
-    jmp impF1
+    call siEstaLlena
+    jmp IngresarNum
 col1F1J2:                                 ; ingresa col 1 row 1
     mov ah, 0
     mov [fila1+1], ah
     mov ecx, 0
-    jmp impF1
+    call siEstaLlena
+    jmp IngresarNum
 col2F1J2:                                 ; ingresa col 2 row 1
     mov ah, 0
     mov [fila1+2], ah
     mov ecx, 0
-    jmp impF1
+    call siEstaLlena
+    jmp IngresarNum
 
 
 f2J2:                                     ; ingresa fila 2
@@ -290,17 +301,20 @@ col0F2J2:                                 ; ingresa col 0 row 2
     mov ah, 0
     mov [fila2+0], ah
     mov ecx, 0
-    jmp impF1
+    call siEstaLlena
+    jmp IngresarNum
 col1F2J2:                                 ; ingresa col 1 row 2
     mov ah, 0
     mov [fila2+1], ah
     mov ecx, 0
-    jmp impF1
+    call siEstaLlena
+    jmp IngresarNum
 col2F2J2:                                 ; ingresa col 2 row 2
     mov ah, 0
     mov [fila2+2], ah
     mov ecx, 0
-    jmp impF1
+    call siEstaLlena
+    jmp IngresarNum
     
 f3J2:                                     ; ingresa row 3
     mov al, [col]
@@ -318,17 +332,20 @@ col0F3J2:                                 ; ingresa col 0 row 3
     mov ah, 0
     mov [fila3+0], ah
     mov ecx, 0
-    jmp impF1
+    call siEstaLlena
+    jmp IngresarNum
 col1F3J2:                                 ; ingresa col 2 row 3
     mov ah, 0
     mov [fila3+1], ah
     mov ecx, 0
-    jmp impF1
+    call siEstaLlena
+    jmp IngresarNum
 col2F3J2:                                 ; ingresa col 3 row 3
     mov ah, 0
     mov [fila3+2], ah
     mov ecx, 0
-    jmp impF1
+    call siEstaLlena
+    jmp IngresarNum
 
 
 ; ===================================== Comparar si esta llena la matriz =======================
@@ -342,7 +359,7 @@ siEstaLlena:
 
     CompF1:
         mov dl, [fila1+esi]
-        sub dl, '0'
+        ;sub dl, '0'
         inc esi
         cmp dl, 5
         jz incCont1
@@ -354,7 +371,7 @@ siEstaLlena:
 
     CompF2:
         mov dl, [fila2+esi]
-        sub dl, '0'
+        ;sub dl, '0'
         inc esi
         cmp dl, 5
         jz incCont2
@@ -366,17 +383,20 @@ siEstaLlena:
 
     CompF3:
         mov dl, [fila3+esi]
-        sub dl, '0'
+        ;sub dl, '0'
         inc esi
         cmp dl, 5
         jz incCont3
         endl3:
         loop CompF3
 
+
+        ;escribir cont,1
+
         mov bl, [cont]
         sub bl, '0'
         cmp bl, 0
-        ja salir                    ; verificar
+        jz impMatriz
         ret
 
 incCont1:
@@ -451,4 +471,3 @@ salir:
     mov eax, 1
     mov ebx, 0
     int 80H
- 
