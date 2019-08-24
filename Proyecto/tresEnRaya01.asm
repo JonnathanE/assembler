@@ -9,10 +9,10 @@
 section .data
     msjStar db 0x1b,"[4;30f", 0x1b,"[33m", "Presione enter para comenzar"
     lenStar EQU $-msjStar
-    
+
     msjEnd db "END",10
     lenEnd EQU $-msjEnd
-    
+
     msjWinJ1 db 0x1b,"[93m","Jugador 1 WINS!!",10, 0x1b,"[37m"
     lenmsjWinJ1 EQU $-msjWinJ1
 
@@ -23,29 +23,29 @@ section .data
     lenmsjEmpates EQU $-msjEmpates
 
     salto db 10,' '
-    
+
     msjFila db "Fila: "
     lenFila EQU $-msjFila
-    
+
     msjCol db "Columna: "
     lenCol EQU $-msjCol
 
     msjJ1 db 0x1b,"[5;0f", 0x1b,"[96m","Jugador 1",10, 0x1b,"[37m"
     lenJ1 EQU $-msjJ1
-    
+
     msjJ2 db 0x1b,"[5;0f", 0x1b,"[32m","Jugador 2",10, 0x1b,"[37m"
     lenJ2 EQU $-msjJ2
-    
+
     ; declaracion de filas
     fila1 db 0, 0, 0
     lenfila1 EQU $-fila1
-    
+
     fila2 db 0, 0, 0
     lenfila2 EQU $-fila2
-    
+
     fila3 db 0, 0, 0
     lenfila3 EQU $-fila3
-    
+
     ; dibujar CIR: row 1; col 2
     CC08 db 0x1b,"[14;36f", 0x1b,"[32m",'===='
     lenCC08 EQU $-CC08
@@ -155,7 +155,7 @@ section .data
 
 
 
-    
+
 section .bss
     cont resb 10
     inicio resb 1
@@ -163,9 +163,9 @@ section .bss
     col resb 1
     pJ1 resb 1
     pJ2 resb 1
-    
+
     resultado resb 2
-    
+
 
 section .text
     global _start
@@ -183,7 +183,7 @@ llenarF1:
     inc edi
     cmp edi, lenfila1
     jb llenarF1
-    
+
     mov esi, fila2
     mov edi, 0
 llenarF2:
@@ -193,7 +193,7 @@ llenarF2:
     inc edi
     cmp edi, lenfila2
     jb llenarF2
-    
+
     mov esi, fila3
     mov edi, 0
 llenarF3:
@@ -203,7 +203,7 @@ llenarF3:
     inc edi
     cmp edi, lenfila3
     jb llenarF3
-    
+
     ; =====================================================================================================
     ; ===================================== Iniciar el juego ==============================================
     ; =====================================================================================================
@@ -214,7 +214,7 @@ llenarF3:
     mov ecx, inicio
     mov edx, 1
     int 80H
-    
+
     call drawTable
     ;call drawXR1C3
     ;call drawCR2C1
@@ -240,10 +240,10 @@ IngresarNum:
     mov ecx, col                        ; guarda en col
     mov edx, 2
     int 80H
-    
+
     mov al, [fila]
     sub al, '0'
-    
+
     cmp al, 1                           ; compara fila 1
         jz f1
     cmp al, 2                           ; compara fila 2
@@ -253,7 +253,7 @@ IngresarNum:
     jmp IngresarNum
 
 
-    
+
 f1:                                     ; ingresa fila 1
     mov al, [col]
     sub al, '0'
@@ -333,7 +333,7 @@ col2F2:                                 ; ingresa col 2 row 2
     call row02
     call row06
     jmp IngresarNumJ2
-    
+
 f3:                                     ; ingresa row 3
     mov al, [col]
     sub al, '0'
@@ -372,7 +372,7 @@ col2F3:                                 ; ingresa col 3 row 3
     call row06
     call row08
     jmp IngresarNumJ2
-    
+
     ; ========================================================================================================================
     ; ==============================================    JUGADOR 2    =========================================================
     ; ========================================================================================================================
@@ -393,10 +393,10 @@ IngresarNumJ2:
     mov ecx, col                        ; guarda en col
     mov edx, 2
     int 80H
-    
+
     mov al, [fila]
     sub al, '0'
-    
+
     cmp al, 1                           ; compara fila 1
         jz f1J2
     cmp al, 2                           ; compara fila 2
@@ -406,7 +406,7 @@ IngresarNumJ2:
     jmp IngresarNumJ2
 
 
-    
+
 f1J2:                                     ; ingresa fila 1
     mov al, [col]
     sub al, '0'
@@ -485,7 +485,7 @@ col2F2J2:                                 ; ingresa col 2 row 2
     call row02J2
     call row06J2
     jmp IngresarNum
-    
+
 f3J2:                                     ; ingresa row 3
     mov al, [col]
     sub al, '0'
@@ -532,7 +532,7 @@ siEstaLlena:
         mov ah, 0
         add ah, '0'
         mov [cont],ah                       ; inicio mi contador en cero
-        
+
         mov ecx, 3                          ; inicio contador del bulce
         mov esi, 0                          ; inicio apuntador
 
@@ -554,7 +554,7 @@ siEstaLlena:
         jz incCont2
         endl2:
         loop CompF2
-        
+
         mov ecx, 3
         mov esi, 0
 
