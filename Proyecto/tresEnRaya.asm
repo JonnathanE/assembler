@@ -19,6 +19,9 @@ section .data
     msjWinJ2 db 0x1b,"[93m","Jugador 2 WINS!!",10, 0x1b,"[37m"
     lenmsjWinJ2 EQU $-msjWinJ2
 
+    msjEmpates db "Empates",10
+    lenmsjEmpates EQU $-msjEmpates
+
     salto db 10,' '
     
     msjFila db "Fila: "
@@ -58,7 +61,7 @@ section .text
     global _start
 
 _start:
-    ; ==================================== llenar las filas con un valor 9 =====================================
+    ; ==================================== llenar las filas con un valor 5 =====================================
     ; ==========================================================================================================
     mov esi, fila1
     mov edi, 0
@@ -90,7 +93,7 @@ llenarF3:
     cmp edi, lenfila3
     jb llenarF3
     
-    
+    ; =====================================================================================================
     ; ===================================== Iniciar el juego ==============================================
     ; =====================================================================================================
     
@@ -102,8 +105,7 @@ llenarF3:
     mov edx, 1
     int 80H
     
-    ;escribir msjJ2, lenJ2
-    
+    ; ====================================================================================================
     ; =================================    JUGADOR 1    ==================================================
     ; ====================================================================================================
 
@@ -194,19 +196,26 @@ col0F2:                                 ; ingresa col 0 row 2
     mov [fila2+0], ah
     mov ecx, 0
     call siEstaLlena
+    call row02
     call row04
     jmp IngresarNumJ2
 col1F2:                                 ; ingresa col 1 row 2
     mov ah, 1
     mov [fila2+1], ah
     mov ecx, 0
-    call siEstaLlena                    ; eeeeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrrrrrrrrrrrrrooooooooooooooooorrrrrrrrrr
+    call siEstaLlena
+    call row02
+    call row05
+    call row07
+    call row08
     jmp IngresarNumJ2
 col2F2:                                 ; ingresa col 2 row 2
     mov ah, 1
     mov [fila2+2], ah
     mov ecx, 0
     call siEstaLlena
+    call row02
+    call row06
     jmp IngresarNumJ2
     
 f3:                                     ; ingresa row 3
@@ -226,22 +235,29 @@ col0F3:                                 ; ingresa col 0 row 3
     mov [fila3+0], ah
     mov ecx, 0
     call siEstaLlena
+    call row03
     call row04
+    call row07
     jmp IngresarNumJ2
 col1F3:                                 ; ingresa col 2 row 3
     mov ah, 1
     mov [fila3+1], ah
     mov ecx, 0
     call siEstaLlena
+    call row03
+    call row05
     jmp IngresarNumJ2
 col2F3:                                 ; ingresa col 3 row 3
     mov ah, 1
     mov [fila3+2], ah
     mov ecx, 0
     call siEstaLlena
+    call row03
+    call row06
+    call row08
     jmp IngresarNumJ2
     
-    
+    ; ========================================================================================================================
     ; ==============================================    JUGADOR 2    =========================================================
     ; ========================================================================================================================
 
@@ -369,7 +385,7 @@ col2F3J2:                                 ; ingresa col 3 row 3
     call siEstaLlena
     jmp IngresarNum
 
-
+; ===================================================================================================================
 ; ===================================== Comparar si esta llena la matriz ============================================
 ; ===================================================================================================================
 siEstaLlena:
@@ -382,7 +398,6 @@ siEstaLlena:
 
     CompF1:
         mov dl, [fila1+esi]
-        ;sub dl, '0'
         inc esi
         cmp dl, 5
         jz incCont1
@@ -394,7 +409,6 @@ siEstaLlena:
 
     CompF2:
         mov dl, [fila2+esi]
-        ;sub dl, '0'
         inc esi
         cmp dl, 5
         jz incCont2
@@ -406,20 +420,16 @@ siEstaLlena:
 
     CompF3:
         mov dl, [fila3+esi]
-        ;sub dl, '0'
         inc esi
         cmp dl, 5
         jz incCont3
         endl3:
         loop CompF3
 
-
-        ;escribir cont,1
-
         mov bl, [cont]
         sub bl, '0'
         cmp bl, 0
-        jz impMatriz
+            jz empates
         ret
 
 incCont1:
@@ -444,6 +454,9 @@ incCont3:
     mov [cont], bl
     jmp endl3
 
+; ==============================================================================================
+; ==================================== JUGADOR 1 ===============================================
+; ==============================================================================================
 ; ===================================== VERIFICAR TRES EN RAYA =================================
 ; ==============================================================================================
 
@@ -722,7 +735,7 @@ incContDiag:
     cmp dh, 6
         jz endcompRow08Fil03
 
-
+; =====================================================================================================
 ; ======================================== IMPRIMIR MENSAJE GANADOR ===================================
 ; =====================================================================================================
 winJ1:
@@ -733,6 +746,11 @@ winJ2:
     escribir msjWinJ2, lenmsjWinJ2
     jmp impMatriz
 
+empates:
+    escribir msjEmpates, lenmsjEmpates
+    jmp impMatriz
+
+; ====================================================================================================================
 ; ========================================= Imprimir TABLERO SIN INTERFAZ ============================================
 ; ====================================================================================================================
 
