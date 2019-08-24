@@ -155,6 +155,7 @@ col0F1:                                 ; ingresa col 0 row 1
     mov ecx, 0
     call siEstaLlena
     call row01
+    call row04
     jmp IngresarNumJ2
 col1F1:                                 ; ingresa col 1 row 1
     mov ah, 1
@@ -162,6 +163,7 @@ col1F1:                                 ; ingresa col 1 row 1
     mov ecx, 0
     call siEstaLlena
     call row01
+    call row05
     jmp IngresarNumJ2
 col2F1:                                 ; ingresa col 2 row 1
     mov ah, 1
@@ -169,6 +171,7 @@ col2F1:                                 ; ingresa col 2 row 1
     mov ecx, 0
     call siEstaLlena
     call row01
+    call row06
     jmp IngresarNumJ2
 
 
@@ -189,6 +192,7 @@ col0F2:                                 ; ingresa col 0 row 2
     mov [fila2+0], ah
     mov ecx, 0
     call siEstaLlena
+    call row04
     jmp IngresarNumJ2
 col1F2:                                 ; ingresa col 1 row 2
     mov ah, 1
@@ -220,6 +224,7 @@ col0F3:                                 ; ingresa col 0 row 3
     mov [fila3+0], ah
     mov ecx, 0
     call siEstaLlena
+    call row04
     jmp IngresarNumJ2
 col1F3:                                 ; ingresa col 2 row 3
     mov ah, 1
@@ -454,14 +459,14 @@ row01:
         inc esi
         mov dh, 1
         cmp dl, 1
-        jz incContRow
+            jz incContRow
         endcompRow01:
         loop compRow01
 
         mov bl, [cont]
         sub bl, '0'
         cmp bl, 3
-        jz winJ1
+            jz winJ1
         ret
 
 row02:
@@ -477,14 +482,14 @@ row02:
         inc esi
         mov dh, 2
         cmp dl, 1
-        jz incContRow
+            jz incContRow
         endcompRow02:
         loop compRow02
 
         mov bl, [cont]
         sub bl, '0'
         cmp bl, 3
-        jz winJ1
+            jz winJ1
         ret
 
 row03:
@@ -500,7 +505,7 @@ row03:
         inc esi
         mov dh, 3
         cmp dl, 1
-        jz incContRow
+            jz incContRow
         endcompRow03:
         loop compRow03
         ;escribir cont,1
@@ -508,12 +513,99 @@ row03:
         mov bl, [cont]
         sub bl, '0'
         cmp bl, 3
-        jz winJ1
+            jz winJ1
         ret
 ; ********************* verifica las Columnas ****************************
+row04:
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov dl, [fila1+0]
+        mov dh, 1
+        cmp dl, 1
+        jz incContCol
+        endcompRow04Fil01:
+
+        mov dl, [fila2+0]
+        mov dh, 2
+        cmp dl, 1
+        jz incContCol
+        endcompRow04Fil02:
+
+        mov dl, [fila3+0]
+        mov dh, 3
+        cmp dl, 1
+        jz incContCol
+        endcompRow04Fil03:
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+            jz winJ1
+        ret
+
+row05:
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov dl, [fila1+1]
+        mov dh, 4
+        cmp dl, 1
+        jz incContCol
+        endcompRow05Fil01:
+
+        mov dl, [fila2+1]
+        mov dh, 5
+        cmp dl, 1
+        jz incContCol
+        endcompRow05Fil02:
+
+        mov dl, [fila3+1]
+        mov dh, 6
+        cmp dl, 1
+        jz incContCol
+        endcompRow05Fil03:
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+            jz winJ1
+        ret
+
+row06:
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov dl, [fila1+2]
+        mov dh, 7
+        cmp dl, 1
+        jz incContCol
+        endcompRow06Fil01:
+
+        mov dl, [fila2+2]
+        mov dh, 8
+        cmp dl, 1
+        jz incContCol
+        endcompRow06Fil02:
+
+        mov dl, [fila3+2]
+        mov dh, 9
+        cmp dl, 1
+        jz incContCol
+        endcompRow06Fil03:
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+            jz winJ1
+        ret
+
 ; ********************* verifica las diagonales **************************
 
-; *********************** incrementa el contador *************************
+; *********************** incrementa el contador para ROW, COL, DIAGONAL*************************
 incContRow:
     mov bl, [cont]
     sub bl, '0'
@@ -526,6 +618,31 @@ incContRow:
         jz endcompRow02
     cmp dh, 3
         jz endcompRow03
+
+incContCol:
+    mov bl, [cont]
+    sub bl, '0'
+    inc bl
+    add bl, '0'
+    mov [cont], bl
+    cmp dh, 1
+        jz endcompRow04Fil01
+    cmp dh, 2
+        jz endcompRow04Fil02
+    cmp dh, 3
+        jz endcompRow04Fil03
+    cmp dh, 4
+        jz endcompRow05Fil01
+    cmp dh, 5
+        jz endcompRow05Fil02
+    cmp dh, 6
+        jz endcompRow05Fil03
+    cmp dh, 7
+        jz endcompRow06Fil01
+    cmp dh, 8
+        jz endcompRow06Fil02
+    cmp dh, 9
+        jz endcompRow06Fil03
 
 ; ======================================== IMPRIMIR MENSAJE GANADOR ===================================
 ; =====================================================================================================
