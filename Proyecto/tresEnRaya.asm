@@ -7,7 +7,7 @@
 %endmacro
 
 section .data
-    msjStar db "Presione enter para comenzar",10
+    msjStar db "Presione enter para comenzar"
     lenStar EQU $-msjStar
     
     msjEnd db "END",10
@@ -156,6 +156,7 @@ col0F1:                                 ; ingresa col 0 row 1
     call siEstaLlena
     call row01
     call row04
+    call row08
     jmp IngresarNumJ2
 col1F1:                                 ; ingresa col 1 row 1
     mov ah, 1
@@ -172,6 +173,7 @@ col2F1:                                 ; ingresa col 2 row 1
     call siEstaLlena
     call row01
     call row06
+    call row07
     jmp IngresarNumJ2
 
 
@@ -604,6 +606,63 @@ row06:
         ret
 
 ; ********************* verifica las diagonales **************************
+row07: ; diagonal secundaria
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov dl, [fila1+2]
+        mov dh, 1
+        cmp dl, 1
+        jz incContDiag
+        endcompRow07Fil01:
+
+        mov dl, [fila2+1]
+        mov dh, 2
+        cmp dl, 1
+        jz incContDiag
+        endcompRow07Fil02:
+
+        mov dl, [fila3+0]
+        mov dh, 3
+        cmp dl, 1
+        jz incContDiag
+        endcompRow07Fil03:
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+            jz winJ1
+        ret
+
+row08: ; diagonal principal
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov dl, [fila1+0]
+        mov dh, 4
+        cmp dl, 1
+        jz incContDiag
+        endcompRow08Fil01:
+
+        mov dl, [fila2+1]
+        mov dh, 5
+        cmp dl, 1
+        jz incContDiag
+        endcompRow08Fil02:
+
+        mov dl, [fila3+2]
+        mov dh, 6
+        cmp dl, 1
+        jz incContDiag
+        endcompRow08Fil03:
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+            jz winJ1
+        ret
 
 ; *********************** incrementa el contador para ROW, COL, DIAGONAL*************************
 incContRow:
@@ -643,6 +702,26 @@ incContCol:
         jz endcompRow06Fil02
     cmp dh, 9
         jz endcompRow06Fil03
+
+incContDiag:
+    mov bl, [cont]
+    sub bl, '0'
+    inc bl
+    add bl, '0'
+    mov [cont], bl
+    cmp dh, 1
+        jz endcompRow07Fil01
+    cmp dh, 2
+        jz endcompRow07Fil02
+    cmp dh, 3
+        jz endcompRow07Fil03
+    cmp dh, 4
+        jz endcompRow08Fil01
+    cmp dh, 5
+        jz endcompRow08Fil02
+    cmp dh, 6
+        jz endcompRow08Fil03
+
 
 ; ======================================== IMPRIMIR MENSAJE GANADOR ===================================
 ; =====================================================================================================
