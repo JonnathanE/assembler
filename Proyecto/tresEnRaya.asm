@@ -13,6 +13,12 @@ section .data
     msjEnd db "END",10
     lenEnd EQU $-msjEnd
     
+    msjWinJ1 db 0x1b,"[93m","Jugador 1 WINS!!",10, 0x1b,"[37m"
+    lenmsjWinJ1 EQU $-msjWinJ1
+
+    msjWinJ2 db 0x1b,"[93m","Jugador 2 WINS!!",10, 0x1b,"[37m"
+    lenmsjWinJ2 EQU $-msjWinJ2
+
     salto db 10,' '
     
     msjFila db "Fila: "
@@ -21,10 +27,10 @@ section .data
     msjCol db "Columna: "
     lenCol EQU $-msjCol
 
-    msjJ1 db "Jugador 1",10
+    msjJ1 db 0x1b,"[96m","Jugador 1",10, 0x1b,"[37m"
     lenJ1 EQU $-msjJ1
     
-    msjJ2 db "Jugador 2",10
+    msjJ2 db 0x1b,"[32m","Jugador 2",10, 0x1b,"[37m"
     lenJ2 EQU $-msjJ2
     
     fila1 db 0, 0, 0
@@ -144,18 +150,21 @@ col0F1:                                 ; ingresa col 0 row 1
     mov [fila1+0], ah
     mov ecx, 0
     call siEstaLlena
+    call row01
     jmp IngresarNumJ2
 col1F1:                                 ; ingresa col 1 row 1
     mov ah, 1
     mov [fila1+1], ah
     mov ecx, 0
     call siEstaLlena
+    call row01
     jmp IngresarNumJ2
 col2F1:                                 ; ingresa col 2 row 1
     mov ah, 1
     mov [fila1+2], ah
     mov ecx, 0
     call siEstaLlena
+    call row01
     jmp IngresarNumJ2
 
 
@@ -421,7 +430,101 @@ incCont3:
     mov [cont], bl
     jmp endl3
 
-;************************************** Imprimir filas ****************************************
+; ===================================== VERIFICAR TRES EN RAYA =================================
+
+row01:
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov ecx, 3                          ; inicio contador del bulce
+        mov esi, 0                          ; inicio apuntador
+
+    compRow01:
+        mov dl, [fila1+esi]
+        inc esi
+        mov dh, 1
+        cmp dl, 1
+        jz incContRow
+        endcompRow01:
+        loop compRow01
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+        jz winJ1
+        ret
+
+row02:
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov ecx, 3
+        mov esi, 0
+
+    compRow02:
+        mov dl, [fila2+esi]
+        inc esi
+        mov dh, 2
+        cmp dl, 1
+        jz incContRow
+        endcompRow02:
+        loop compRow02
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+        jz winJ1
+        ret
+
+row03:
+        mov ah, 0
+        add ah, '0'
+        mov [cont],ah                       ; inicio mi contador en cero
+
+        mov ecx, 3
+        mov esi, 0
+
+    compRow03:
+        mov dl, [fila3+esi]
+        inc esi
+        mov dh, 3
+        cmp dl, 1
+        jz incContRow
+        endcompRow03:
+        loop compRow03
+        ;escribir cont,1
+
+        mov bl, [cont]
+        sub bl, '0'
+        cmp bl, 3
+        jz winJ1
+        ret
+
+incContRow:
+    mov bl, [cont]
+    sub bl, '0'
+    inc bl
+    add bl, '0'
+    mov [cont], bl
+    cmp dh, 1
+        jz endcompRow01
+    cmp dh, 2
+        jz endcompRow02
+    cmp dh, 3
+        jz endcompRow03
+
+; ======================================== IMPRIMIR MENSAJE DE GANADOR ================================
+winJ1:
+    escribir msjWinJ1, lenmsjWinJ1
+    jmp impMatriz
+
+winJ2:
+    escribir msjWinJ2, lenmsjWinJ2
+    jmp impMatriz
+
+;========================================= Imprimir filas =============================================
 impMatriz:
     mov ecx,0
     impF1:
