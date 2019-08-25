@@ -45,87 +45,53 @@ section .data
     
     fila3 db 0, 0, 0
     lenfila3 EQU $-fila3
-    
-    ; dibujar CIR: row 1; col 2
-    CC08 db 0x1b,"[14;36f", 0x1b,"[32m",'===='
-    lenCC08 EQU $-CC08
-    ; dibujar CIR: row 1; col 3
-    CC09 db 0x1b,"[14;48f", 0x1b,"[32m",'===='
-    ; dibujar CIR: row 2; col 1
-    CC10 db 0x1b,"[20;24f", 0x1b,"[32m",'===='
-    ;cc1 db 0x1b,"[20;36f",0x1b,"[37m",'==='
-    ;lencc1 EQU $-cc1
+
 
     ; dibujar X: row 1; col 1
-    xC01 db 0x1b,"[12;24f", 0x1b,"[96m",'\   /'
-    lenxC01 EQU $-xC01
-    xC02 db 0x1b,"[13;24f", 0x1b,"[96m",' \ /'
-    lenxC02 EQU $-xC02
-    xC03 db 0x1b,"[14;24f", 0x1b,"[96m",'  \'
-    lenxC03 EQU $-xC03
-    xC04 db 0x1b,"[15;24f", 0x1b,"[96m",' / \'
-    lenxC04 EQU $-xC04
-    xC05 db 0x1b,"[16;24f", 0x1b,"[96m",'/   \'
-    lenxC05 EQU $-xC05
+    xC1 db 0x1b,"[14;24f", 0x1b,"[96m",'1'
+    lenxC1 EQU $-xC1
     ; dibujar X: row 1; col 2
-    xC06 db 0x1b,"[12;36f", 0x1b,"[96m",'\   /'
-    xC07 db 0x1b,"[13;36f", 0x1b,"[96m",' \ /'
-    xC08 db 0x1b,"[14;36f", 0x1b,"[96m",'  \'
-    xC09 db 0x1b,"[15;36f", 0x1b,"[96m",' / \'
-    xC10 db 0x1b,"[16;36f", 0x1b,"[96m",'/   \'
+    xC2 db 0x1b,"[14;36f", 0x1b,"[96m",'1'
     ; dibujar X: row 1; col 3
-    xC11 db 0x1b,"[12;48f", 0x1b,"[96m",'\   /'
-    xC12 db 0x1b,"[13;48f", 0x1b,"[96m",' \ /'
-    xC13 db 0x1b,"[14;48f", 0x1b,"[96m",'  \'
-    xC14 db 0x1b,"[15;48f", 0x1b,"[96m",' / \'
-    xC15 db 0x1b,"[16;48f", 0x1b,"[96m",'/   \'
+    xC3 db 0x1b,"[14;48f", 0x1b,"[96m",'1'
+
     ; dibujar X: row 2; col 1
-    xC16 db 0x1b,"[18;24f", 0x1b,"[96m",'\   /'
-    xC17 db 0x1b,"[19;24f", 0x1b,"[96m",' \ /'
-    xC18 db 0x1b,"[20;24f", 0x1b,"[96m",'  \'
-    xC19 db 0x1b,"[21;24f", 0x1b,"[96m",' / \'
-    xC20 db 0x1b,"[22;24f", 0x1b,"[96m",'/   \'
+    xC4 db 0x1b,"[20;24f", 0x1b,"[96m",'1'
     ; dibujar X: row 2; col 2
-    xC21 db 0x1b,"[18;36f", 0x1b,"[96m",'\   /'
-    xC22 db 0x1b,"[19;36f", 0x1b,"[96m",' \ /'
-    xC23 db 0x1b,"[20;36f", 0x1b,"[96m",'  \'
-    xC24 db 0x1b,"[21;36f", 0x1b,"[96m",' / \'
-    xC25 db 0x1b,"[22;36f", 0x1b,"[96m",'/   \'
+    xC5 db 0x1b,"[20;36f", 0x1b,"[96m",'1'
     ; dibujar X: row 2; col 3
-    xC26 db 0x1b,"[18;48f", 0x1b,"[96m",'\   /'
-    xC27 db 0x1b,"[19;48f", 0x1b,"[96m",' \ /'
-    xC28 db 0x1b,"[20;48f", 0x1b,"[96m",'  \'
-    xC29 db 0x1b,"[21;48f", 0x1b,"[96m",' / \'
-    xC30 db 0x1b,"[22;48f", 0x1b,"[96m",'/   \'
+    xC6 db 0x1b,"[20;48f", 0x1b,"[96m",'1'
+
     ; dibujar X: row 3; col 1
-    xC31 db 0x1b,"[24;24f", 0x1b,"[96m",'\   /'
-    xC32 db 0x1b,"[25;24f", 0x1b,"[96m",' \ /'
-    xC33 db 0x1b,"[26;24f", 0x1b,"[96m",'  \'
-    xC34 db 0x1b,"[27;24f", 0x1b,"[96m",' / \'
-    xC35 db 0x1b,"[28;24f", 0x1b,"[96m",'/   \'
+    xC7 db 0x1b,"[26;24f", 0x1b,"[96m",'1'
     ; dibujar X: row 3; col 2
-    xC36 db 0x1b,"[24;36f", 0x1b,"[96m",'\   /'
-    xC37 db 0x1b,"[25;36f", 0x1b,"[96m",' \ /'
-    xC38 db 0x1b,"[26;36f", 0x1b,"[96m",'  \'
-    xC39 db 0x1b,"[27;36f", 0x1b,"[96m",' / \'
-    xC40 db 0x1b,"[28;36f", 0x1b,"[96m",'/   \'
+    xC8 db 0x1b,"[26;36f", 0x1b,"[96m",'1'
     ; dibujar X: row 3; col 3
-    xC41 db 0x1b,"[24;48f", 0x1b,"[96m",'\   /'
-    xC42 db 0x1b,"[25;48f", 0x1b,"[96m",' \ /'
-    xC43 db 0x1b,"[26;48f", 0x1b,"[96m",'  \'
-    xC44 db 0x1b,"[27;48f", 0x1b,"[96m",' / \'
-    xC45 db 0x1b,"[28;48f", 0x1b,"[96m",'/   \'
+    xC9 db 0x1b,"[26;48f", 0x1b,"[96m",'1'
+
+    ;===============================
     ; dibujar CIR: row 1; col 1
-    CC01 db 0x1b,"[12;24f", 0x1b,"[32m",' --- '
-    lenCC01 EQU $-CC01
-    CC02 db 0x1b,"[13;24f", 0x1b,"[32m",'/   \'
-    lenCC02 EQU $-CC02
-    CC03 db 0x1b,"[14;24f", 0x1b,"[32m",'|   |'
-    lenCC03 EQU $-CC03
-    CC04 db 0x1b,"[15;24f", 0x1b,"[32m",'\   /'
-    lenCC04 EQU $-CC04
-    CC05 db 0x1b,"[16;24f", 0x1b,"[32m",' --- '
-    lenCC05 EQU $-CC05
+    cC1 db 0x1b,"[14;24f", 0x1b,"[96m",'0'
+    lencC1 EQU $-cC1
+    ; dibujar CIR: row 1; col 2
+    cC2 db 0x1b,"[14;36f", 0x1b,"[96m",'0'
+    ; dibujar CIR: row 1; col 3
+    cC3 db 0x1b,"[14;48f", 0x1b,"[96m",'0'
+
+    ; dibujar CIR: row 2; col 1
+    cC4 db 0x1b,"[20;24f", 0x1b,"[96m",'0'
+    ; dibujar CIR: row 2; col 2
+    cC5 db 0x1b,"[20;36f", 0x1b,"[96m",'0'
+    ; dibujar CIR: row 2; col 3
+    cC6 db 0x1b,"[20;48f", 0x1b,"[96m",'0'
+
+    ; dibujar CIR: row 3; col 1
+    cC7 db 0x1b,"[26;24f", 0x1b,"[96m",'0'
+    ; dibujar CIR: row 3; col 2
+    cC8 db 0x1b,"[26;36f", 0x1b,"[96m",'0'
+    ; dibujar CIR: row 3; col 3
+    cC9 db 0x1b,"[26;48f", 0x1b,"[96m",'0'
+
 
     ; dibujar
     lineH01 db 0x1b,"[11;20f", 0x1b,"[37m",'-------------------------------------'
@@ -152,9 +118,13 @@ section .data
     lineC14 db 0x1b,"[27;20f", 0x1b,"[37m",'|           |           |           |'
     lineC15 db 0x1b,"[28;20f", 0x1b,"[37m",'|           |           |           |'
 
+    numRow1 db 0x1b,"[14;15f", 0x1b,"[37m", "1"
+    numRow2 db 0x1b,"[20;15f", 0x1b,"[37m", "2"
+    numRow3 db 0x1b,"[26;15f", 0x1b,"[37m", "3"
 
-
-
+    numCol1 db 0x1b,"[10;24f", 0x1b,"[37m", "1"
+    numCol2 db 0x1b,"[10;36f", 0x1b,"[37m", "2"
+    numCol3 db 0x1b,"[10;48f", 0x1b,"[37m", "3"
     
 section .bss
     cont resb 10
@@ -270,7 +240,7 @@ col0F1:                                 ; ingresa col 0 row 1
     mov ah, 1
     mov [fila1+0], ah
     mov ecx, 0
-    call drawIcon
+    call drawIcon11
     call siEstaLlena
     call row01
     call row04
@@ -280,6 +250,7 @@ col1F1:                                 ; ingresa col 1 row 1
     mov ah, 1
     mov [fila1+1], ah
     mov ecx, 0
+    call drawIcon12
     call siEstaLlena
     call row01
     call row05
@@ -288,6 +259,7 @@ col2F1:                                 ; ingresa col 2 row 1
     mov ah, 1
     mov [fila1+2], ah
     mov ecx, 0
+    call drawIcon13
     call siEstaLlena
     call row01
     call row06
@@ -311,6 +283,7 @@ col0F2:                                 ; ingresa col 0 row 2
     mov ah, 1
     mov [fila2+0], ah
     mov ecx, 0
+    call drawIcon21
     call siEstaLlena
     call row02
     call row04
@@ -319,6 +292,7 @@ col1F2:                                 ; ingresa col 1 row 2
     mov ah, 1
     mov [fila2+1], ah
     mov ecx, 0
+    call drawIcon22
     call siEstaLlena
     call row02
     call row05
@@ -329,6 +303,7 @@ col2F2:                                 ; ingresa col 2 row 2
     mov ah, 1
     mov [fila2+2], ah
     mov ecx, 0
+    call drawIcon23
     call siEstaLlena
     call row02
     call row06
@@ -350,6 +325,7 @@ col0F3:                                 ; ingresa col 0 row 3
     mov ah, 1
     mov [fila3+0], ah
     mov ecx, 0
+    call drawIcon31
     call siEstaLlena
     call row03
     call row04
@@ -359,6 +335,7 @@ col1F3:                                 ; ingresa col 2 row 3
     mov ah, 1
     mov [fila3+1], ah
     mov ecx, 0
+    call drawIcon32
     call siEstaLlena
     call row03
     call row05
@@ -367,6 +344,7 @@ col2F3:                                 ; ingresa col 3 row 3
     mov ah, 1
     mov [fila3+2], ah
     mov ecx, 0
+    call drawIcon33
     call siEstaLlena
     call row03
     call row06
@@ -1161,18 +1139,55 @@ incContDiagJ2:
 
 
 ; ====================================================================================================
-drawIcon:
+; ================================== JUGADOR 1 =======================================================
+; ====================================================================================================
+drawIcon11:
     mov al, [fila1+0]
     cmp al, 1
     call drawXR1C1
-    ;mov al, [fila1+1]
-    ;cmp al, 1
-    ;call drawXR1C2
-    ;mov al, [fila1+2]
-    ;cmp al, 1
-    ;call drawXR1C3
+    ret
+drawIcon12:
+    mov al, [fila1+1]
+    cmp al, 1
+    call drawXR1C2
+    ret
+drawIcon13:
+    mov al, [fila1+2]
+    cmp al, 1
+    call drawXR1C3
     ret
 
+drawIcon21:
+    mov al, [fila2+0]
+    cmp al, 1
+    call drawXR2C1
+    ret
+drawIcon22:
+    mov al, [fila2+1]
+    cmp al, 1
+    call drawXR2C2
+    ret
+drawIcon23:
+    mov al, [fila2+2]
+    cmp al, 1
+    call drawXR2C3
+    ret
+
+drawIcon31:
+    mov al, [fila3+0]
+    cmp al, 1
+    call drawXR3C1
+    ret
+drawIcon32:
+    mov al, [fila3+1]
+    cmp al, 1
+    call drawXR3C2
+    ret
+drawIcon33:
+    mov al, [fila3+2]
+    cmp al, 1
+    call drawXR3C3
+    ret
 
 ; =====================================================================================================
 ; ======================================== IMPRIMIR MENSAJE GANADOR ===================================
@@ -1261,104 +1276,71 @@ drawTable:
     escribir lineC13,1
     escribir lineC14,1
     escribir lineC15,1
+    escribir numRow1,1
+    escribir numRow2,1
+    escribir numRow3,1
+    escribir numCol1,1
+    escribir numCol2,1
+    escribir numCol3,1
     ret
 
 drawXR1C1:
-    ; dibujar X: row 1; col 1
-    escribir xC01, lenxC01
-    escribir xC02, lenxC02
-    escribir xC03, lenxC03
-    escribir xC04, lenxC04
-    escribir xC05, lenxC05
+    escribir xC1,lenxC1
     ret
 drawXR1C2:
-    ; dibujar X: row 1; col 2
-    escribir xC06, lenxC01
-    escribir xC07, lenxC02
-    escribir xC08, lenxC03
-    escribir xC09, lenxC04
-    escribir xC10, lenxC05
+    escribir xC2,lenxC1
     ret
 drawXR1C3:
-    ; dibujar X: row 1; col 3
-    escribir xC11, lenxC01
-    escribir xC12, lenxC02
-    escribir xC13, lenxC03
-    escribir xC14, lenxC04
-    escribir xC15, lenxC05
+    escribir xC3,lenxC1
     ret
 drawXR2C1:
-    ; dibujar X: row 2; col 1
-    escribir xC16, lenxC01
-    escribir xC17, lenxC02
-    escribir xC18, lenxC03
-    escribir xC19, lenxC04
-    escribir xC20, lenxC05
+    escribir xC4,lenxC1
     ret
 drawXR2C2:
-    ; dibujar X: row 2; col 2
-    escribir xC21, lenxC01
-    escribir xC22, lenxC02
-    escribir xC23, lenxC03
-    escribir xC24, lenxC04
-    escribir xC25, lenxC05
+    escribir xC5,lenxC1
     ret
 drawXR2C3:
-    ; dibujar X: row 2; col 3
-    escribir xC26, lenxC01
-    escribir xC27, lenxC02
-    escribir xC28, lenxC03
-    escribir xC29, lenxC04
-    escribir xC30, lenxC05
+    escribir xC6,lenxC1
     ret
 drawXR3C1:
-    ; dibujar X: row 3; col 1
-    escribir xC31, lenxC01
-    escribir xC32, lenxC02
-    escribir xC33, lenxC03
-    escribir xC34, lenxC04
-    escribir xC35, lenxC05
+    escribir xC7,lenxC1
     ret
 drawXR3C2:
-    ; dibujar X: row 3; col 2
-    escribir xC36, lenxC01
-    escribir xC37, lenxC02
-    escribir xC38, lenxC03
-    escribir xC39, lenxC04
-    escribir xC40, lenxC05
+    escribir xC8,lenxC1
     ret
 drawXR3C3:
-    ; dibujar X: row 3; col 3
-    escribir xC41, lenxC01
-    escribir xC42, lenxC02
-    escribir xC43, lenxC03
-    escribir xC44, lenxC04
-    escribir xC45, lenxC05
+    escribir xC9,lenxC1
     ret
+
 drawCR1C1:
-    ; dibujar CIR: row 1; col 1
-    escribir CC01, lenCC01
-    escribir CC02, lenCC02
-    escribir CC03, lenCC03
-    escribir CC04, lenCC04
-    escribir CC05, lenCC05
+    escribir cC1,lencC1
     ret
 drawCR1C2:
-    ; dibujar CIR: row 1; col 1
-    escribir CC08, lenCC08
+    escribir cC2,lencC1
     ret
 drawCR1C3:
-    ; dibujar CIR: row 1; col 3
-    escribir CC09, lenCC08
+    escribir cC3,lencC1
     ret
 drawCR2C1:
-    ; dibujar CIR: row 2; col 1
-    escribir CC10, lenCC08
+    escribir cC4,lencC1
     ret
-;drawCR2C2:
-    ; dibujar CIR: row 2; col 2
- ;   escribir cc1, lencc1
-  ;  ret
+drawCR2C2:
+    escribir cC5,lencC1
+    ret
+drawCR2C3:
+    escribir cC6,lencC1
+    ret
+drawCR3C1:
+    escribir cC7,lencC1
+    ret
+drawCR3C2:
+    escribir cC8,lencC1
+    ret
+drawCR3C3:
+    escribir cC9,lencC1
+    ret
+
+
 
 
 ; ==========================================================================================================
