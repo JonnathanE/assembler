@@ -10,16 +10,16 @@ section .data
     msjStar db 0x1b,"[4;30f", 0x1b,"[33m", "Presione enter para comenzar"
     lenStar EQU $-msjStar
     
-    msjEnd db "END",10
+    msjEnd db 0x1b,"[36;20f",0x1b,"[91m","END",10
     lenEnd EQU $-msjEnd
     
-    msjWinJ1 db 0x1b,"[93m","Jugador 1 WINS!!",10, 0x1b,"[37m"
+    msjWinJ1 db 0x1b,"[32;20f",0x1b,"[93m","Jugador 1 WINS!!",10, 0x1b,"[37m"
     lenmsjWinJ1 EQU $-msjWinJ1
 
-    msjWinJ2 db 0x1b,"[93m","Jugador 2 WINS!!",10, 0x1b,"[37m"
+    msjWinJ2 db 0x1b,"[32;20f",0x1b,"[93m","Jugador 2 WINS!!",10, 0x1b,"[37m"
     lenmsjWinJ2 EQU $-msjWinJ2
 
-    msjEmpates db "Empates",10
+    msjEmpates db 0x1b,"[32;20f",0x1b,"[93m","Empates",10
     lenmsjEmpates EQU $-msjEmpates
 
     salto db 10,' '
@@ -71,26 +71,26 @@ section .data
 
     ;===============================
     ; dibujar CIR: row 1; col 1
-    cC1 db 0x1b,"[14;24f", 0x1b,"[96m",'0'
+    cC1 db 0x1b,"[14;24f", 0x1b,"[32m",'0'
     lencC1 EQU $-cC1
     ; dibujar CIR: row 1; col 2
-    cC2 db 0x1b,"[14;36f", 0x1b,"[96m",'0'
+    cC2 db 0x1b,"[14;36f", 0x1b,"[32m",'0'
     ; dibujar CIR: row 1; col 3
-    cC3 db 0x1b,"[14;48f", 0x1b,"[96m",'0'
+    cC3 db 0x1b,"[14;48f", 0x1b,"[32m",'0'
 
     ; dibujar CIR: row 2; col 1
-    cC4 db 0x1b,"[20;24f", 0x1b,"[96m",'0'
+    cC4 db 0x1b,"[20;24f", 0x1b,"[32m",'0'
     ; dibujar CIR: row 2; col 2
-    cC5 db 0x1b,"[20;36f", 0x1b,"[96m",'0'
+    cC5 db 0x1b,"[20;36f", 0x1b,"[32m",'0'
     ; dibujar CIR: row 2; col 3
-    cC6 db 0x1b,"[20;48f", 0x1b,"[96m",'0'
+    cC6 db 0x1b,"[20;48f", 0x1b,"[32m",'0'
 
     ; dibujar CIR: row 3; col 1
-    cC7 db 0x1b,"[26;24f", 0x1b,"[96m",'0'
+    cC7 db 0x1b,"[26;24f", 0x1b,"[32m",'0'
     ; dibujar CIR: row 3; col 2
-    cC8 db 0x1b,"[26;36f", 0x1b,"[96m",'0'
+    cC8 db 0x1b,"[26;36f", 0x1b,"[32m",'0'
     ; dibujar CIR: row 3; col 3
-    cC9 db 0x1b,"[26;48f", 0x1b,"[96m",'0'
+    cC9 db 0x1b,"[26;48f", 0x1b,"[32m",'0'
 
 
     ; dibujar
@@ -401,6 +401,7 @@ col0F1J2:                                 ; ingresa col 0 row 1
     mov ah, 0
     mov [fila1+0], ah
     mov ecx, 0
+    call drawIcon11J2
     call siEstaLlena
     call row01J2
     call row04J2
@@ -410,6 +411,7 @@ col1F1J2:                                 ; ingresa col 1 row 1
     mov ah, 0
     mov [fila1+1], ah
     mov ecx, 0
+    call drawIcon12J2
     call siEstaLlena
     call row01J2
     call row05J2
@@ -418,6 +420,7 @@ col2F1J2:                                 ; ingresa col 2 row 1
     mov ah, 0
     mov [fila1+2], ah
     mov ecx, 0
+    call drawIcon13J2
     call siEstaLlena
     call row01J2
     call row06J2
@@ -441,6 +444,7 @@ col0F2J2:                                 ; ingresa col 0 row 2
     mov ah, 0
     mov [fila2+0], ah
     mov ecx, 0
+    call drawIcon21J2
     call siEstaLlena
     call row02J2
     call row04J2
@@ -449,6 +453,7 @@ col1F2J2:                                 ; ingresa col 1 row 2
     mov ah, 0
     mov [fila2+1], ah
     mov ecx, 0
+    call drawIcon22J2
     call siEstaLlena
     call row02J2
     call row05J2
@@ -459,6 +464,7 @@ col2F2J2:                                 ; ingresa col 2 row 2
     mov ah, 0
     mov [fila2+2], ah
     mov ecx, 0
+    call drawIcon23J2
     call siEstaLlena
     call row02J2
     call row06J2
@@ -480,6 +486,7 @@ col0F3J2:                                 ; ingresa col 0 row 3
     mov ah, 0
     mov [fila3+0], ah
     mov ecx, 0
+    call drawIcon31J2
     call siEstaLlena
     call row03J2
     call row04J2
@@ -489,6 +496,7 @@ col1F3J2:                                 ; ingresa col 2 row 3
     mov ah, 0
     mov [fila3+1], ah
     mov ecx, 0
+    call drawIcon32J2
     call siEstaLlena
     call row03J2
     call row05J2
@@ -497,6 +505,7 @@ col2F3J2:                                 ; ingresa col 3 row 3
     mov ah, 0
     mov [fila3+2], ah
     mov ecx, 0
+    call drawIcon33J2
     call siEstaLlena
     call row03J2
     call row06J2
@@ -1140,6 +1149,7 @@ incContDiagJ2:
 
 ; ====================================================================================================
 ; ================================== JUGADOR 1 =======================================================
+; ================================== Dibujar x =======================================================
 ; ====================================================================================================
 drawIcon11:
     mov al, [fila1+0]
@@ -1187,6 +1197,58 @@ drawIcon33:
     mov al, [fila3+2]
     cmp al, 1
     call drawXR3C3
+    ret
+
+; ====================================================================================================
+; ================================== JUGADOR 2 =======================================================
+; ================================== Dibujar Circulo =======================================================
+; ====================================================================================================
+drawIcon11J2:
+    mov al, [fila1+0]
+    cmp al, 0
+    call drawCR1C1
+    ret
+drawIcon12J2:
+    mov al, [fila1+1]
+    cmp al, 0
+    call drawCR1C2
+    ret
+drawIcon13J2:
+    mov al, [fila1+2]
+    cmp al, 0
+    call drawCR1C3
+    ret
+
+drawIcon21J2:
+    mov al, [fila2+0]
+    cmp al, 0
+    call drawCR2C1
+    ret
+drawIcon22J2:
+    mov al, [fila2+1]
+    cmp al, 0
+    call drawCR2C2
+    ret
+drawIcon23J2:
+    mov al, [fila2+2]
+    cmp al, 0
+    call drawCR2C3
+    ret
+
+drawIcon31J2:
+    mov al, [fila3+0]
+    cmp al, 0
+    call drawCR3C1
+    ret
+drawIcon32J2:
+    mov al, [fila3+1]
+    cmp al, 0
+    call drawCR3C2
+    ret
+drawIcon33J2:
+    mov al, [fila3+2]
+    cmp al, 0
+    call drawCR3C3
     ret
 
 ; =====================================================================================================
